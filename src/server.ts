@@ -38,6 +38,7 @@ app.post("/api/upload-audio", upload.single("audio"), async (req, res) => {
       }
 
       // Transcribe the WAV file to text
+      console.log("transcribing wav file to text");
       const text = await transcribeWavToText(
         wavFilePath,
         model,
@@ -45,14 +46,17 @@ app.post("/api/upload-audio", upload.single("audio"), async (req, res) => {
       );
 
       if (text) {
+        // Process transcribed text using the OpenAI Completions API
+        // ProcessText()
+
         res.json({ text: text });
       } else {
         res.status(500).json({ error: "Failed to transcribe audio" });
       }
 
       // Remove the temporary files
-      // fs.unlinkSync(filePath);
-      // fs.unlinkSync(wavFilePath);
+      fs.unlinkSync(filePath);
+      fs.unlinkSync(wavFilePath);
     });
   } else {
     res.status(400).send("No file received");
