@@ -1,67 +1,12 @@
 import express from "express";
 import cors from "cors";
-import multer from "multer";
-import fs from "fs";
-import { Configuration, OpenAIApi } from "openai";
-
-import convertToWav from "../src/services/audioProcessing/convertToWav";
-import transcribeWavToText from "../src/services/audioProcessing/transcribeWavToText";
-
-require("dotenv").config();
-
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+import audioRoutes from "./routes/audioRoutes";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-const config = new Configuration({ apiKey: OPENAI_API_KEY });
-const openai = new OpenAIApi(config);
-
-const upload = multer({ dest: "uploads/" });
-
-app.post("/api/upload-audio", upload.single("audio"), async (req, res) => {
-  console.log("Received request to /api/upload-audio");
-
-  if (req.file && req.file.path) {
-    const filePath = req.file.path;
-    const model = "whisper-1";
-
-    // Convert the audio file to wav format
-    convertToWav(filePath, async (err, wavFilePath) => {
-      if (err || !wavFilePath) {
-        console.error("Conversion error:", err);
-        return res
-          .status(500)
-          .json({ error: "Failed to convert audio to WAV" });
-      }
-
-      // Transcribe the WAV file to text
-      console.log("transcribing wav file to text");
-      const text = await transcribeWavToText(
-        wavFilePath,
-        model,
-        OPENAI_API_KEY
-      );
-
-      if (text) {
-        // Process transcribed text using the OpenAI Completions API
-        // ProcessText()
-
-        res.json({ text: text });
-      } else {
-        res.status(500).json({ error: "Failed to transcribe audio" });
-      }
-
-      // Remove the temporary files
-      fs.unlinkSync(filePath);
-      fs.unlinkSync(wavFilePath);
-    });
-  } else {
-    res.status(400).send("No file received");
-  }
-});
+app.use("/api", audioRoutes);
 
 // app.post(
 //   "/api/process-text",
