@@ -18,7 +18,7 @@ const transcribeWavToText = async (
 
     const headers = formData.getHeaders();
     headers["Authorization"] = `Bearer ${OPENAI_API_KEY}`;
-
+    console.log("got to this bit");
     const response = await axios.post(
       "https://api.openai.com/v1/audio/transcriptions",
       formData,
