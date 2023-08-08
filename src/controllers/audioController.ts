@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import convertToWav from "../services/audioProcessing/convertToWav";
 import transcribeWavToText from "../services/audioProcessing/transcribeWavToText";
-import fs from "fs";
+import fs, { realpathSync } from "fs";
+import basicTextCompletion from "../services/textProcessing/basicTextCompletion";
 
 require("dotenv").config();
 
@@ -29,10 +30,9 @@ export const uploadAudio = async (req: Request, res: Response) => {
       );
 
       if (text) {
-        // Process transcribed text using the OpenAI Completions API
-        // ProcessText()
+        const output = await basicTextCompletion(text);
 
-        res.json({ text: text });
+        res.json({ text: output });
       } else {
         res.status(500).json({ error: "Failed to transcribe audio" });
       }
