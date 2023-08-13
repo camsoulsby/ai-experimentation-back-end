@@ -15,7 +15,7 @@ const basicTextCompletion = async (inputText: string) => {
 
   try {
     const response = await openai.createCompletion(completionRequest);
-
+    console.log(response);
     const processedText = response.data.choices[0].text;
     const cleanedText = processedText?.trim(); //added this to remove line breaks that were added to response.
     return cleanedText;
