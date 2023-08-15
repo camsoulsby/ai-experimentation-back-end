@@ -7,6 +7,7 @@ const transcribeWavToText = async (
   model: string,
   OPENAI_API_KEY: string | undefined
 ): Promise<string | null> => {
+  console.log("Preparing WAV file");
   try {
     const fileStream = fs.createReadStream(wavFilePath);
     const formData = new FormData();
@@ -18,6 +19,7 @@ const transcribeWavToText = async (
 
     const headers = formData.getHeaders();
     headers["Authorization"] = `Bearer ${OPENAI_API_KEY}`;
+    console.log("Making request to Whisper API");
     const response = await axios.post(
       "https://api.openai.com/v1/audio/transcriptions",
       formData,
@@ -25,7 +27,7 @@ const transcribeWavToText = async (
         headers: headers,
       }
     );
-
+    console.log("Returning response");
     return response.data.text;
   } catch (error) {
     console.error(error);

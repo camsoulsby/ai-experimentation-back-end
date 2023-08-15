@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import audioRoutes from "./routes/audioRoutes";
+import textRoutes from "./routes/textRoutes";
 import http from "http";
 import WebSocket from "ws";
 
@@ -11,6 +12,7 @@ const wss = new WebSocket.Server({ server });
 app.use(cors());
 app.use(express.json());
 app.use("/api", audioRoutes);
+app.use("/api", textRoutes);
 
 // Variable to hold the text
 let text = "Initial text";
