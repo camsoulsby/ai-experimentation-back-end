@@ -25,7 +25,7 @@ const gpt35Completion = async (text: string) => {
     {
       role: ChatCompletionRequestMessageRoleEnum.User,
       content:
-        "Can you help to provide an annotated transcription of a call if I provide the raw text?",
+        "Can you help to provide an annotated transcription of a call if I provide the raw text? This is a transcription of a conversation between one RealNZ contact centre representative and one guest or trade partner. I want to you analyse the text to work out which party said which sentence, keeping in mind that the contact centre rep is likely to be asking details about the guest or booking, and the guest or agent is likley to ask about availabilities or experiences. Please provide an annotated transcription, showing the real names if they are available, with their role in brackets.",
     },
     {
       // In this case, this is used to give an example of desired behaviour. But this can also store chat history.
