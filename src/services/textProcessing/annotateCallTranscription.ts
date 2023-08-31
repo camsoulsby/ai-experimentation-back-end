@@ -15,7 +15,7 @@ const annotateCallTranscription = async (text: string) => {
   const callReviewMessage = [
     {
       role: ChatCompletionRequestMessageRoleEnum.System,
-      content: `You are an expert at deciphering phone call transcriptions to figure out who said what`,
+      content: `You are an expert at deciphering phone call transcriptions, figuring out who said what, and correcting mistakes in the transcription.`,
     },
     {
       role: ChatCompletionRequestMessageRoleEnum.User,
@@ -24,7 +24,7 @@ const annotateCallTranscription = async (text: string) => {
     },
     {
       role: ChatCompletionRequestMessageRoleEnum.Assistant,
-      content: "Yes, I can help you.",
+      content: "Deb (RealNZ): Welcome to RealNZ, you're ",
     },
     {
       role: ChatCompletionRequestMessageRoleEnum.User,
