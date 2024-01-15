@@ -1,3 +1,5 @@
+// I don't think this file is used at all and can be deleted
+
 import dotenv from "dotenv";
 import { Configuration, OpenAIApi } from "openai";
 

@@ -18,7 +18,7 @@ const transcribeWavToText = async (
     });
     formData.append(
       "prompt",
-      "This call will likley start with an introduction to RealNZ and a customer service representative's name, and will likely involve enquiries around the T.S.S Earnslaw Cruise to Walter Peak, or trips to Doubtful Sound, Milford Sounds, Stewart Island, or the Te Anau Glowworm Caves."
+      "This call will likley start with an introduction to RealNZ and a customer service representative's name, and will likely involve enquiries around the T.S.S Earnslaw Cruise to Walter Peak, or trips to Doubtful Sound, Milford Sounds, Stewart Island, or the Te Anau Glowworm Caves. If credit card information is present, please return this in a redacted format for privacy."
     );
     formData.append("language", "en");
     // formData.append("response_format", "text"); <-- experiment with this as may make more sense that returning JSON
