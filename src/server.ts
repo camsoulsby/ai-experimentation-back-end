@@ -15,7 +15,10 @@ app.get("/ping", (req, res) => {
 });
 
 const corsOptions = {
-  origin: "https://callreview.camsoulsby.com", // Replace with your actual frontend domain
+  origin:
+    process.env.NODE_ENV === "production"
+      ? "https://callreview.camsoulsby.com"
+      : "http://localhost:5173",
 };
 
 app.use(cors(corsOptions));
