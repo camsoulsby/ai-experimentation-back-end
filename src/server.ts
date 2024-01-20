@@ -15,7 +15,7 @@ app.get("/ping", (req, res) => {
 });
 
 const corsOptions = {
-  origin: "https://your-frontend-domain.netlify.app", // Replace with your actual frontend domain
+  origin: "https://callreview.camsoulsby.com", // Replace with your actual frontend domain
 };
 
 app.use(cors(corsOptions));
