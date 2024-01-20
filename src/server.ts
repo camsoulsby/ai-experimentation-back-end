@@ -9,12 +9,16 @@ const app = express();
 const server = http.createServer(app);
 // const wss = new WebSocket.Server({ server });
 
-// Add the ping endpoint
+// Add a ping endpoint for testing backend
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-app.use(cors());
+const corsOptions = {
+  origin: "https://your-frontend-domain.netlify.app", // Replace with your actual frontend domain
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api", audioRoutes);
 app.use("/api", textRoutes);
@@ -46,5 +50,5 @@ app.use("/api", textRoutes);
 const PORT = process.env.PORT || 3001;
 
 server.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
+  console.log(`Server listening at port ${PORT}`);
 });
