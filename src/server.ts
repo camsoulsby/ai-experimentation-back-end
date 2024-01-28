@@ -3,7 +3,8 @@ import cors from "cors";
 import audioRoutes from "./routes/audioRoutes";
 import textRoutes from "./routes/textRoutes";
 import http from "http";
-import { validateJWT } from "./middlewares/jwtMiddleware"; // Adjust the path as needed
+import { validateJWT } from "./middlewares/jwtMiddleware";
+import { checkAllowedEmails } from "./middlewares/checkAllowedEmails";
 
 const app = express();
 const server = http.createServer(app);
@@ -17,9 +18,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.use(express.json());
 app.use("/api", validateJWT);
 
-app.use(express.json());
+app.use("/api", checkAllowedEmails);
+
 app.use("/api", audioRoutes);
 app.use("/api", textRoutes);
 

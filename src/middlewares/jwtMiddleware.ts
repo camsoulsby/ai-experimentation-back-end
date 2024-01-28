@@ -10,7 +10,7 @@ const expectedAudience = process.env.EXPECTED_AUDIENCE;
 
 console.log("Expected audience", expectedAudience);
 
-// Define an interface that extends Request to include user
+// Define an interface that extends Request to include user - this should be pulled out and defined globally, but I had a lot of trouble doing this
 interface RequestWithUser extends Request {
   user?: JwtPayload;
 }
@@ -93,6 +93,7 @@ export const validateJWT = (
 
     // Use type assertion here
     (req as RequestWithUser).user = decoded as JwtPayload;
+
     next();
   });
 };
