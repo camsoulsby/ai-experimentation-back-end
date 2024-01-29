@@ -9,6 +9,18 @@ import { checkAllowedEmails } from "./middlewares/checkAllowedEmails";
 const app = express();
 const server = http.createServer(app);
 
+// Redirect HTTP to HTTPS
+app.use((req, res, next) => {
+  if (
+    req.header("x-forwarded-proto") !== "https" &&
+    process.env.NODE_ENV === "production"
+  ) {
+    res.redirect(`https://${req.header("host")}${req.url}`);
+  } else {
+    next();
+  }
+});
+
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
