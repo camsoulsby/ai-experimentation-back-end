@@ -23,7 +23,8 @@ export function checkAllowedEmails(
 
   // Assuming you store the user's email in req.user after authentication
   console.log("User payload: ", req.user);
-  const userEmail: string | undefined = req.user?.preferred_username;
+  const userEmail: string | undefined =
+    req.user?.preferred_username.toLowerCase();
   console.log("User email: ", userEmail);
   // Check if the user's email is in the allowed list
   if (userEmail && allowedEmailsArray.includes(userEmail)) {
