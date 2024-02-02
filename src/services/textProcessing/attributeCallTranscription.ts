@@ -11,7 +11,7 @@ const config = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
 const openai = new OpenAIApi(config);
 
 const attributeCallTranscription = async (text: string, model: string) => {
-  console.log(`running using model: ${model}`);
+  console.log(`Using model: ${model}`);
   const functions = [
     {
       name: "display_transcription",
@@ -72,7 +72,6 @@ const attributeCallTranscription = async (text: string, model: string) => {
     },
   ];
 
-  console.log("Generating response");
   try {
     const response = await openai.createChatCompletion({
       model: model,

@@ -8,9 +8,6 @@ const client = jwksClient({
 
 const expectedAudience = process.env.EXPECTED_AUDIENCE;
 
-console.log("Expected audience", expectedAudience);
-
-// Define an interface that extends Request to include user - this should be pulled out and defined globally, but I had a lot of trouble doing this
 interface RequestWithUser extends Request {
   user?: JwtPayload;
 }
@@ -44,9 +41,6 @@ function getKey(
       return;
     }
 
-    // console.log("Retrieved signing key ID:", key.kid);
-    // console.log("Retrieved signing key:", signingKey);
-
     callback(null, signingKey);
   });
 }
@@ -58,9 +52,6 @@ export const validateJWT = (
 ) => {
   const token = req.headers.authorization?.split(" ")[1];
 
-  // Log the received token
-  // console.log("Received token:", token);
-
   if (!token) {
     return res.status(401).send("Access token is required");
   }
@@ -71,7 +62,6 @@ export const validateJWT = (
     console.error("Invalid JWT structure");
     return res.status(401).send("Invalid token");
   }
-  console.log("Decoded JWT Header:", decodedToken.header);
 
   jwt.verify(token, getKey, { algorithms: ["RS256"] }, (err, decoded) => {
     if (err) {
@@ -91,7 +81,6 @@ export const validateJWT = (
       return res.status(401).send("Invalid token audience");
     }
 
-    // Use type assertion here
     (req as RequestWithUser).user = decoded as JwtPayload;
 
     next();

@@ -9,7 +9,7 @@ import { checkAllowedEmails } from "./middlewares/checkAllowedEmails";
 const app = express();
 const server = http.createServer(app);
 
-// Redirect HTTP to HTTPS
+//redirect HTTP requests to HTTPS
 app.use((req, res, next) => {
   if (
     req.header("x-forwarded-proto") !== "https" &&
